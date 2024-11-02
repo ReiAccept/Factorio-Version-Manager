@@ -7,6 +7,9 @@ echo "当前版本: $CURRENT_VERSION"
 if [[ "$1" == "--latest" ]];then
     echo "开始更新到最新版本"
     VERSION_NUM="latest"
+elif [[ "$1" == "--stable" ]];then
+    echo "开始更新到最新稳定版"
+    VERSION_NUM="stable"
 else
     HTML=$(curl -s https://www.factorio.com/download/archive/)
     VERSIONS=$(echo "$HTML" | grep -Eo 'href="/download/archive/[0-9.]*"' | sed -E 's/href="\/download\/archive\/([0-9.]*)"/\1/g')
@@ -18,7 +21,7 @@ else
 
     echo "可供下载的版本有:"
     echo "$VERSIONS"
-    echo "其实你也可以直接输入 latest 来下载最新版"
+    echo "其实你也可以直接输入 stable 来下载最新版，或者 latest 来下载最新版（含测试版）"
 
     read VERSION_NUM
 fi
